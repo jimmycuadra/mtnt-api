@@ -20,4 +20,12 @@ describe Entry do
   it "belongs to a user" do
     expect(subject).to respond_to(:user)
   end
+
+  it "strips leading and trailing whitespace from nouns and verbs" do
+    subject.noun = " foo "
+    subject.verb = " bar "
+    subject.valid?
+    expect(subject.noun).to eql("foo")
+    expect(subject.verb).to eql("bar")
+  end
 end
