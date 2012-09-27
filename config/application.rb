@@ -59,5 +59,17 @@ module MtntApi
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    config.middleware.delete ActionDispatch::Cookies
+    config.middleware.delete ActionDispatch::Session::CookieStore
+    config.middleware.delete ActionDispatch::Flash
+    config.middleware.delete ActionDispatch::BestStandardsSupport
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins Rails.env.production? ? "morethingsneed.to" : "localhost:4567"
+        resource "*", headers: :any, methods: [:get, :post, :put, :delete, :options]
+      end
+    end
   end
 end
