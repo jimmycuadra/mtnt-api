@@ -18,4 +18,8 @@ describe User do
       expect(subject.api_key).to match(/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/)
     end
   end
+
+  it "can vote on entries" do
+    expect(subject).to respond_to(:vote_for)
+  end
 end

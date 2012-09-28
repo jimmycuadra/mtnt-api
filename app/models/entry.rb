@@ -10,6 +10,8 @@ class Entry < ActiveRecord::Base
   validates :verb, presence: true
   validates :user_id, presence: true
 
+  acts_as_voteable
+
   def self.newest
     order("created_at desc")
   end

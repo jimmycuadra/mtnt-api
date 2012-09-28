@@ -48,4 +48,8 @@ describe Entry do
       expect(Entry.oldest.map(&:id)).to eql([e3, e2, e1].map(&:id))
     end
   end
+
+  it "can be voted on by users" do
+    expect(subject).to respond_to(:votes)
+  end
 end
