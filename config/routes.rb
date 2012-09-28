@@ -1,6 +1,9 @@
 MtntApi::Application.routes.draw do
   scope(module: :v1, defaults: { format: :json }) do
-    resources :entries
+    resources :entries do
+      resources :votes, only: [:create]
+    end
+
     resources :users
   end
 end
