@@ -15,4 +15,14 @@ class V1::EntriesController < V1::BaseController
     entry.save
     respond_with entry
   end
+
+  def update
+    entry = Entry.find_by_id_and_user_id(params[:id], current_user.id)
+    respond_with entry.update_attributes(params[:entry])
+  end
+
+  def destroy
+    entry = Entry.find_by_id_and_user_id(params[:id], current_user.id)
+    respond_with entry.destroy
+  end
 end
