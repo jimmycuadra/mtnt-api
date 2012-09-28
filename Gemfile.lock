@@ -112,6 +112,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.33)
+    will_paginate (3.0.3)
 
 PLATFORMS
   ruby
@@ -126,3 +127,4 @@ DEPENDENCIES
   simplecov
   sqlite3
   thin
+  will_paginate

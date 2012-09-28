@@ -3,6 +3,7 @@ source "https://rubygems.org"
 gem "rails"
 gem "thin"
 gem "rack-cors", require: "rack/cors"
+gem "will_paginate"
 
 group :production do
   gem "pg"

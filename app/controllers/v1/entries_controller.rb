@@ -2,7 +2,14 @@ class V1::EntriesController < V1::BaseController
   respond_to :json
 
   def index
-    respond_with Entry.newest
+    entries = case params[:order]
+    when "oldest"
+      Entry.oldest
+    else
+      Entry.newest
+    end
+
+    respond_with entries.paginate(page: params[:page] || 1, per_page: params[:per_page] || 30)
   end
 
   def show
