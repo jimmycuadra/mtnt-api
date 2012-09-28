@@ -28,4 +28,24 @@ describe Entry do
     expect(subject.noun).to eql("foo")
     expect(subject.verb).to eql("bar")
   end
+
+  describe ".newest" do
+    it "lists the newest entries" do
+      e1 = FactoryGirl.create(:entry, created_at: Time.now)
+      e2 = FactoryGirl.create(:entry, created_at: 1.day.ago)
+      e3 = FactoryGirl.create(:entry, created_at: 1.week.ago)
+
+      expect(Entry.newest.map(&:id)).to eql([e1, e2, e3].map(&:id))
+    end
+  end
+
+  describe ".oldest" do
+    it "lists the oldest entries" do
+      e1 = FactoryGirl.create(:entry, created_at: Time.now)
+      e2 = FactoryGirl.create(:entry, created_at: 1.day.ago)
+      e3 = FactoryGirl.create(:entry, created_at: 1.week.ago)
+
+      expect(Entry.oldest.map(&:id)).to eql([e3, e2, e1].map(&:id))
+    end
+  end
 end

@@ -10,8 +10,16 @@ class Entry < ActiveRecord::Base
   validates :verb, presence: true
   validates :user_id, presence: true
 
+  def self.newest
+    order("created_at desc")
+  end
+
+  def self.oldest
+    order("created_at asc")
+  end
+
   def strip_whitespace
-    self.noun = noun.strip! if noun.present?
-    self.verb = verb.strip! if verb.present?
+    noun.strip! if noun.present?
+    verb.strip! if verb.present?
   end
 end
