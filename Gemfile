@@ -4,6 +4,7 @@ gem "rails"
 gem "thin"
 gem "rack-cors", require: "rack/cors"
 gem "will_paginate"
+gem "thumbs_up"
 
 group :production do
   gem "pg"
