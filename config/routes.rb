@@ -5,5 +5,7 @@ MtntApi::Application.routes.draw do
     end
 
     resources :users
+
+    resources :sessions, only: [:create]
   end
 end
