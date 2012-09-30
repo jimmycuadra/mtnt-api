@@ -3,19 +3,27 @@ class Session
 
   class AssertionVerificationFailed < StandardError; end
 
-  def self.create(options)
-    response = Faraday.post(
-      PERSONA_VERIFICATION_URL,
-      assertion: options[:assertion],
-      audience: "http://#{MtntApi::APP_BASE_URL}"
-    )
+  class << self
+    def create(assertion)
+      result = verify_assertion(assertion)
 
-    result = MultiJson.load(response.body)
+      if result["status"] == "okay"
+        User.find_or_create_by_email(result["email"])
+      else
+        raise AssertionVerificationFailed.new(result["reason"])
+      end
+    end
 
-    if result["status"] == "okay"
-      User.find_or_create_by_email(result["email"])
-    else
-      raise AssertionVerificationFailed.new(result["reason"])
+    private
+
+    def verify_assertion(assertion)
+      response = Faraday.post(
+        PERSONA_VERIFICATION_URL,
+        assertion: assertion,
+        audience: "http://#{MtntApi::APP_BASE_URL}"
+      )
+
+      MultiJson.load(response.body)
     end
   end
 end

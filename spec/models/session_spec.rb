@@ -13,7 +13,7 @@ describe Session do
         assertion: "abcdefg",
         audience: "http://#{MtntApi::APP_BASE_URL}"
       ).and_return(response)
-      Session.create(assertion: "abcdefg")
+      Session.create("abcdefg")
     end
 
     context "with a valid assertion" do
@@ -26,7 +26,7 @@ describe Session do
 
       it "finds or creates a user with the verified email address" do
         User.should_receive(:find_or_create_by_email).with("starla@jade.com")
-        Session.create(assertion: "abcdefg")
+        Session.create("abcdefg")
       end
     end
 
@@ -40,7 +40,7 @@ describe Session do
 
       it "raises a Session::AssertionVerificationFailed exception" do
         expect do
-          Session.create(assertion: "abcdefg")
+          Session.create("abcdefg")
         end.to raise_error(Session::AssertionVerificationFailed, "Some error message.")
       end
     end
