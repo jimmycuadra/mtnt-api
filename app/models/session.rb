@@ -13,13 +13,9 @@ class Session
     result = MultiJson.load(response.body)
 
     if result["status"] == "okay"
-      new(email: result["email"])
+      User.find_or_create_by_email(result["email"])
     else
       raise AssertionVerificationFailed.new(result["reason"])
     end
-  end
-
-  def initialize(options = {})
-
   end
 end

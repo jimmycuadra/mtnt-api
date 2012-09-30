@@ -24,8 +24,8 @@ describe Session do
         }
       end
 
-      it "returns a User session" do
-        Session.should_receive(:new).with(email: "starla@jade.com")
+      it "finds or creates a user with the verified email address" do
+        User.should_receive(:find_or_create_by_email).with("starla@jade.com")
         Session.create(assertion: "abcdefg")
       end
     end
