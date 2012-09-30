@@ -8,6 +8,7 @@ FactoryGirl.define do
 
   factory :user do
     name "Starla Jade"
+    email "starla@jade.com"
     api_key SecureRandom.uuid
   end
 end

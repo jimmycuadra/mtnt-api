@@ -5,12 +5,14 @@ class User < ActiveRecord::Base
 
   has_many :entries
 
-  validates :name, presence: true
+  before_validation :generate_api_key!
+
+  validates :email, presence: true
   validates :api_key, presence: true
 
   acts_as_voter
 
   def generate_api_key!
-    self.api_key = SecureRandom.uuid
+    self.api_key = SecureRandom.uuid unless api_key.present?
   end
 end

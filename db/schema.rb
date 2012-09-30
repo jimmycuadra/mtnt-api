@@ -25,7 +25,8 @@ ActiveRecord::Schema.define(:version => 20120928051028) do
   add_index "entries", ["user_id"], :name => "index_entries_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "name",                          :null => false
+    t.string   "name"
+    t.string   "email",                         :null => false
     t.string   "api_key",                       :null => false
     t.boolean  "admin",      :default => false
     t.datetime "created_at",                    :null => false
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(:version => 20120928051028) do
   end
 
   add_index "users", ["api_key"], :name => "index_users_on_api_key"
+  add_index "users", ["email"], :name => "index_users_on_email"
 
   create_table "votes", :force => true do |t|
     t.boolean  "vote",          :default => false, :null => false

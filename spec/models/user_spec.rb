@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe User do
-  [:name].each do |attribute|
+  [:email].each do |attribute|
     it "requires the #{attribute} attribute" do
       subject.valid?
       expect(subject).to have(1).error_on(attribute)
