@@ -3,7 +3,7 @@ require "spec_helper"
 describe Session do
   describe ".create" do
     let(:response) { double.tap { |d| d.stub(:body) } }
-    let(:result) { {} }
+    let(:result) { { "status" => "okay" } }
 
     before { MultiJson.stub(:load).and_return(result) }
 
@@ -21,9 +21,6 @@ describe Session do
         {
           "status" => "okay",
           "email" => "starla@jade.com",
-          "audience" => "http://#{MtntApi::APP_BASE_URL}",
-          "expires" => "ms since epoch",
-          "issuer" => "Mozilla Persona"
         }
       end
 
@@ -41,9 +38,10 @@ describe Session do
         }
       end
 
-      it "returns a session with an error" do
-        Session.should_receive(:new).with(error: "Some error message.")
-        Session.create(assertion: "abcdefg")
+      it "raises a Session::AssertionVerificationFailed exception" do
+        expect do
+          Session.create(assertion: "abcdefg")
+        end.to raise_error(Session::AssertionVerificationFailed, "Some error message.")
       end
     end
   end

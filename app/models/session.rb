@@ -1,6 +1,8 @@
 class Session
   PERSONA_VERIFICATION_URL = "https://verifier.login.persona.org/verify"
 
+  class AssertionVerificationFailed < StandardError; end
+
   def self.create(options)
     response = Faraday.post(
       PERSONA_VERIFICATION_URL,
@@ -13,7 +15,7 @@ class Session
     if result["status"] == "okay"
       new(email: result["email"])
     else
-      new(error: result["reason"])
+      raise AssertionVerificationFailed.new(result["reason"])
     end
   end
 
