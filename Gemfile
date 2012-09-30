@@ -5,6 +5,9 @@ gem "thin"
 gem "rack-cors", require: "rack/cors"
 gem "will_paginate"
 gem "thumbs_up"
+gem "faraday"
+gem "multi_json"
+gem "oj"
 
 group :production do
   gem "pg"

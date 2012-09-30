@@ -11,6 +11,8 @@ require "action_mailer/railtie"
 Bundler.require(:default, Rails.env)
 
 module MtntApi
+  APP_BASE_URL = Rails.env.production? ? "morethingsneed.to" : "localhost:4567"
+
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -67,7 +69,7 @@ module MtntApi
 
     config.middleware.use Rack::Cors do
       allow do
-        origins Rails.env.production? ? "morethingsneed.to" : "localhost:4567"
+        origins APP_BASE_URL
         resource "*", headers: :any, methods: [:get, :post, :put, :delete, :options]
       end
     end
